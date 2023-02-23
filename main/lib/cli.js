@@ -8,33 +8,28 @@ class CLI {
             {
                 type: "list",
                 name: "options",
-                message: "\nWhat would you like to do?:",
+                message: "\n\nWhat would you like to do?:",
                 choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role", "quit"]
             }
         ])
-            .then(async(response) => {
+            .then((response) => {
                 const render = new Render();
-                const questions = (response) => {
-                    if (response.options === "view all departments") {
-                        render.viewAll("department");
-                    } else if (response.options === "view all roles") {
-                        render.viewAll("role");
-                    } else if (response.options === "view all employees") {
-                        render.viewAll("employee");
-                    };
-                    return console.log('Repeat?');
+                if (response.options === "view all departments") {
+                    render.viewAll("department");
+                } else if (response.options === "view all roles") {
+                    render.viewAll("role");
+                } else if (response.options === "view all employees") {
+                    render.viewAll("employee");
                 };
-                const repeat = (response) => {
-                    if (response.options === "quit") {
-                        return console.log("Bye");
-                    } else {
-                        return this.run();
-                    }
-                };
-                questions(await response);
-                repeat(await response);
-            })
-    }
+
+                if (response.options === "quit") {
+                    return console.log("Bye");
+                } else {
+                    return this.run();
+                }
+            });
+    };
 }
+
 
 module.exports = CLI;

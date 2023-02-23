@@ -19,7 +19,7 @@ class Render {
             if (err) {
                 return console.log('Error selecting from ' + table + "\n\n" + err);
             } else {
-                console.log("\n\nAll " + table + "'s");
+                console.log("\n\n\nAll " + table + "'s \n");
                 return console.table(results);
             }
         })
