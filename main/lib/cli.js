@@ -9,17 +9,25 @@ class CLI {
                 type: "list",
                 name: "options",
                 message: "\n\nWhat would you like to do?:",
-                choices: ["view all departments", "view all roles", "view all employees", "add a department", "add a role", "add an employee", "update an employee role", "quit"]
+                choices: [
+                    "view all departments",
+                    "view all roles",
+                    "view all employees",
+                    "add a department",
+                    "add a role",
+                    "add an employee",
+                    "update an employee role",
+                    "quit"]
             }
         ])
             .then((response) => {
                 const render = new Render();
                 if (response.options === "view all departments") {
-                    render.viewAll("department");
+                    render.viewDepartmentsTable();
                 } else if (response.options === "view all roles") {
-                    render.viewAll("role");
+                    render.viewRolesTable();
                 } else if (response.options === "view all employees") {
-                    render.viewAll("employee");
+                    render.viewEmployeesTable();
                 };
 
                 if (response.options === "quit") {
