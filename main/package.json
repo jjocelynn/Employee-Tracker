@@ -1,9 +1,19 @@
 {
-  "name": "employee-tracker",
+  "name": "main",
   "version": "1.0.0",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "inquirer": "8.2.4",
+    "inquirer": "^8.2.4",
     "console.table": "0.10.0",
     "mysql2": "^2.2.5",
     "dotenv": "^8.2.0"
