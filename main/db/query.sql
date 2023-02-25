@@ -20,3 +20,6 @@ FROM employee e1
 JOIN employee e2
 ON e1.id = IF (e2.role_id = 3, e2.id, NULL);
 
+-- showing table of employee first and last names
+SELECT employee.first_name, employee.last_name
+FROM employee;

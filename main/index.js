@@ -37,6 +37,8 @@ class CLI {
                     return this.addRole()
                 } else if (response.options === "add an employee") {
                     return this.addEmployee()
+                } else if (response.options === "update an employee role") {
+                    return this.updateEmployeeRole()
                 } else if (response.options === "quit") {
                     console.log("Bye");
                     return "quit"
@@ -86,11 +88,11 @@ class CLI {
             },
         ]).then((res) => {
             const departmentId = departments.indexOf(res.department) + 1;
-            console.log(res.title + res.salary + departmentId)
             render.addRole(res.title, res.salary, departmentId);
             this.run();
         })
     }
+
     async addEmployee() {
         const render = new Render();
         let roles = [];
@@ -104,7 +106,6 @@ class CLI {
 
         await render.managerList()
             .then(res => {
-                console.log(res);
                 managerNames = res.map(arr => arr.manager);
                 managerNames.push("Has no manager");
                 managerIds = res.map(arr => arr.id);
@@ -146,6 +147,42 @@ class CLI {
             }
 
             render.addEmployee(res.firstName, res.lastName, role, managerId);
+            this.run();
+        })
+    }
+
+    async updateEmployeeRole() {
+        const render = new Render();
+        let employeeList = [];
+        let roles = [];
+
+        await render.employeeList()
+            .then(res => {
+                employeeList = res;
+            })
+
+        await render.roleList()
+            .then(res => {
+                roles = res;
+            })
+
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "employee",
+                message: "Which employee do you want to update:",
+                choices: employeeList
+            },
+            {
+                type: "list",
+                name: "role",
+                message: "What role would you like to reassign them?:",
+                choices: roles
+            },
+        ]).then((res) => {
+            const employee = employeeList.indexOf(res.employee) + 1;
+            const role = roles.indexOf(res.role) + 1;
+            render.update(role, employee);
             this.run();
         })
     }

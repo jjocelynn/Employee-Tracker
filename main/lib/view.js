@@ -121,14 +121,26 @@ class Render {
         return (results);
     }
 
-    //update an employee role
+    // employee list array
+    async employeeList() {
+        const results = await new Promise((resolve, reject) => {
+            db.query(`SELECT employee.first_name, employee.last_name FROM employee;`, (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+        const employeeList = results.map(employee => employee.first_name + " " + employee.last_name);
+        return (employeeList);
+    }
 
-//     // WHEN I choose to update an employee role
-//  select an employee to update and their new role
-    update(sqlCode) {
-        db.query(`UPDATE employee SET`, (err, results) => {
+    //update an employee role
+    update(newRole, employeeId) {
+        db.query(`UPDATE employee SET role_id = ${newRole} WHERE id = ${employeeId};`, (err, results) => {
             if (err) {
-                return console.log('Error updating informatin' + err);
+                return console.log('Error updating information' + err);
             } else {
                 console.log("\n\n\nInformation updated successfully\n");
                 return results;
