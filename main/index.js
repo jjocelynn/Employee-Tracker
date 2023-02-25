@@ -57,13 +57,14 @@ class CLI {
             this.run();
         })
     }
+
     async addRole() {
         const render = new Render();
-        let departments=[];
+        let departments = [];
 
         await render.departmentList()
             .then(res => {
-                departments= res;
+                departments = res;
             })
 
         inquirer.prompt([
@@ -84,24 +85,29 @@ class CLI {
                 choices: departments
             },
         ]).then((res) => {
-            const departmentIndex = departments.indexOf(res.department)
-            render.addRole(res.title, res.salary, departmentIndex);
+            const departmentId = departments.indexOf(res.department) + 1;
+            console.log(res.title + res.salary + departmentId)
+            render.addRole(res.title, res.salary, departmentId);
             this.run();
         })
     }
     async addEmployee() {
         const render = new Render();
         let roles = [];
-        let managers = [];
+        let managerNames = [];
+        let managerIds = [];
 
-        await render.departmentList()
+        await render.roleList()
             .then(res => {
                 roles = res;
             })
 
         await render.managerList()
             .then(res => {
-                managers = res;
+                console.log(res);
+                managerNames = res.map(arr => arr.manager);
+                managerNames.push("Has no manager");
+                managerIds = res.map(arr => arr.id);
             })
 
         inquirer.prompt([
@@ -125,13 +131,21 @@ class CLI {
                 type: "list",
                 name: "manager",
                 message: "employee's manager?:",
-                choices: managers
+                choices: managerNames
             },
         ]).then((res) => {
-            const role = roles.indexOf(res.role);
-           // const manager = roles.indexOf(res.role);
+            const role = roles.indexOf(res.role) + 1;
+            const managerIndex = "";
+            let managerId;
 
-            render.addEmployee(res.firstName, res.lastName, role, 1);
+            if (res.manager === "Has no manager") {
+                managerId = null;
+            } else {
+                managerIndex = managerNames.indexOf(res.manager);
+                managerId = managerIds[managerIndex];
+            }
+
+            render.addEmployee(res.firstName, res.lastName, role, managerId);
             this.run();
         })
     }
