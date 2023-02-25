@@ -57,7 +57,15 @@ class CLI {
             this.run();
         })
     }
-    addRole() {
+    async addRole() {
+        const render = new Render();
+        let departments=[];
+
+        await render.departmentList()
+            .then(res => {
+                departments= res;
+            })
+
         inquirer.prompt([
             {
                 type: "input",
@@ -70,17 +78,32 @@ class CLI {
                 message: "salary for this position:"
             },
             {
-                type: "input",
+                type: "list",
                 name: "department",
-                message: "which department does this role belong to?:"
+                message: "which department does this role belong to?:",
+                choices: departments
             },
         ]).then((res) => {
-            const render = new Render();
-            render.addRole(res.title, res.salary, res.department);
+            const departmentIndex = departments.indexOf(res.department)
+            render.addRole(res.title, res.salary, departmentIndex);
             this.run();
         })
     }
-    addEmployee() {
+    async addEmployee() {
+        const render = new Render();
+        let roles = [];
+        let managers = [];
+
+        await render.departmentList()
+            .then(res => {
+                roles = res;
+            })
+
+        await render.managerList()
+            .then(res => {
+                managers = res;
+            })
+
         inquirer.prompt([
             {
                 type: "input",
@@ -93,19 +116,22 @@ class CLI {
                 message: "last name:"
             },
             {
-                type: "input",
+                type: "list",
                 name: "role",
-                message: "employee's role?:"
+                message: "employee's role?:",
+                choices: roles
             },
             {
-                type: "input",
+                type: "list",
                 name: "manager",
-                message: "employee's manager?:"
+                message: "employee's manager?:",
+                choices: managers
             },
         ]).then((res) => {
-            const render = new Render();
-            render.addEmployee(res.firstName, res.lastName, res.role, res.manager);
+            const role = roles.indexOf(res.role);
+           // const manager = roles.indexOf(res.role);
 
+            render.addEmployee(res.firstName, res.lastName, role, 1);
             this.run();
         })
     }

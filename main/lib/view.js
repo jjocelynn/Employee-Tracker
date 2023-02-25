@@ -74,6 +74,70 @@ class Render {
     }
 
     //update an employee role
+
+    // // retrieve select data from tables
+    // async selectData(sqlCode) {
+    //     const results = await new Promise((resolve, reject) => {
+    //         db.query(sqlCode, (err, results) => {
+    //             if (err) {
+    //                 reject(err);
+    //             } else {
+    //                 resolve(results);
+    //             }
+    //         });
+    //     });
+    //     const dataList = results.map(role => role.title);
+    //     return dataList;
+    // }
+
+    // departmentList(){
+    //     this.selectData("SELECT title FROM role;");
+    // }
+    async departmentList() {
+        const results = await new Promise((resolve, reject) => {
+            db.query("SELECT name FROM department;", (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+        const departmentList = results.map(name => name.name);
+        return (departmentList);
+    }
+
+    async roleList() {
+        const results = await new Promise((resolve, reject) => {
+            db.query("SELECT title FROM role;", (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+        const roleList = results.map(role => role.title);
+        return (roleList);
+    }
+
+    async managerList() {
+        const results = await new Promise((resolve, reject) => {
+            db.query("SELECT e1.first_name AS manager FROM employee e1 JOIN employee e2 ON e1.id = e2.manager_id; ", (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+        const managerList = results.map( manager => manager.manager);
+        const filtermanagerList = managerList.filter((name, index) => {
+            return managerList.indexOf(name)=== index;
+        });
+        return (filtermanagerList);
+    }
+    
 }
 
 
