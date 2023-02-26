@@ -22,7 +22,7 @@ class Render {
             if (err) {
                 return console.log('Error selecting from ' + table + "\n\n" + err);
             } else {
-                console.log("\n\n\nAll " + table + "'s \n");
+                console.log("\n\n\nAll " + table + "'s");
                 return console.table(results);
             }
         })
@@ -44,37 +44,37 @@ class Render {
     }
 
 
-
     //////////ADD infromation to table//////////
 
-    // template to add information
-    alterTemplate(sqlCode, errorMessage, successMessage) {
+    //template to add information
+    alterTemplate(sqlCode, table) {
         db.query(sqlCode, (err, results) => {
             if (err) {
-                return console.log(errorMessage + "\n\n" + err);
+                return console.log(`Error adding ${table}.` + "\n\n" + err);
             } else {
-                return console.log("\n" + successMessage + "\n\n");
+                return console.log(`\n\nSuccessfully added ${table}!\n\n`);
             }
         })
     }
 
     //add a department
     addDepartment(name) {
-        this.alterTemplate(`INSERT INTO department (name) VALUES("${name}");`, 'Error in adding department name', 'Successfully added department!')
+        this.alterTemplate(`INSERT INTO department (name) VALUES("${name}");`, 'department');
     }
 
     //add a role
     addRole(title, salary, department) {
-        this.alterTemplate(`INSERT INTO role (title, salary, department_id) VALUES ("${title}", ${salary}, ${department});`, 'Error in adding role', 'Successfully added role!')
+        this.alterTemplate(`INSERT INTO role (title, salary, department_id) VALUES ("${title}", ${salary}, ${department});`, 'role');
     }
 
     //add an employee
     addEmployee(firstName, lastName, role, manager) {
-        this.alterTemplate(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}", "${lastName}", ${role}, ${manager});`, `Error in adding ${firstName} ${lastName}`, `Successfully added ${firstName} ${lastName}!`)
+        this.alterTemplate(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}", "${lastName}", ${role}, ${manager});`, `${firstName} ${lastName}`);
     }
 
 
-    ////////List///////
+    //////// List select data ///////
+
     // department list array
     async departmentList() {
         const results = await new Promise((resolve, reject) => {
@@ -116,8 +116,6 @@ class Render {
                 }
             });
         });
-        const managerList = results.map(manager => manager.manager);
-        const managerIds = results.map(id => id.id);
         return (results);
     }
 
@@ -136,7 +134,7 @@ class Render {
         return (employeeList);
     }
 
-    //update an employee role
+    ////// Update an employee role //////
     update(newRole, employeeId) {
         db.query(`UPDATE employee SET role_id = ${newRole} WHERE id = ${employeeId};`, (err, results) => {
             if (err) {

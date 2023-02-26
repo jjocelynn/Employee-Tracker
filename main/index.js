@@ -1,8 +1,9 @@
 //importing required documents
 const inquirer = require('inquirer');
-const Render = require('./lib/view');
+const Render = require('./lib/render');
 
 class CLI {
+    // options menu
     run() {
         inquirer.prompt([
             {
@@ -20,6 +21,7 @@ class CLI {
                     "quit"]
             }
         ])
+            // checks response and executes action accordingly
             .then((response) => {
                 const render = new Render();
                 if (response.options === "view all departments") {
@@ -41,11 +43,12 @@ class CLI {
                     return this.updateEmployeeRole()
                 } else if (response.options === "quit") {
                     console.log("Bye");
-                    return "quit"
+                    process.exit();
                 }
             })
     };
 
+    //creates new department based on user answers
     newDepartment() {
         inquirer.prompt([
             {
@@ -60,6 +63,7 @@ class CLI {
         })
     }
 
+    // creates new role based on user answers
     async addRole() {
         const render = new Render();
         let departments = [];
@@ -87,12 +91,13 @@ class CLI {
                 choices: departments
             },
         ]).then((res) => {
-            const departmentId = departments.indexOf(res.department) + 1;
+            let departmentId = departments.indexOf(res.department) + 1;
             render.addRole(res.title, res.salary, departmentId);
             this.run();
         })
     }
 
+    // creates new employee according to user input
     async addEmployee() {
         const render = new Render();
         let roles = [];
@@ -135,8 +140,8 @@ class CLI {
                 choices: managerNames
             },
         ]).then((res) => {
-            const role = roles.indexOf(res.role) + 1;
-            const managerIndex = "";
+            let role = roles.indexOf(res.role) + 1;
+            let managerIndex = "";
             let managerId;
 
             if (res.manager === "Has no manager") {
@@ -188,5 +193,7 @@ class CLI {
     }
 }
 
+
+// creating cli class and calling the run function.
 const cli = new CLI();
 cli.run();

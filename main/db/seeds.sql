@@ -1,3 +1,5 @@
+-- seeding data into respective tables
+
 INSERT INTO department (name)
 VALUES ('Production'),
        ('Management');

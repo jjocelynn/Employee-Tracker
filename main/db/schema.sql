@@ -1,8 +1,11 @@
+-- creating database
 DROP DATABASE IF EXISTS employee_db;
 CREATE DATABASE employee_db;
 
+-- using created database
 USE employee_db;
 
+-- creating department, role, and employee tables
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30)
