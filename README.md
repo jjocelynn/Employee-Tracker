@@ -1,40 +1,37 @@
-# Note Taker
+#  Employee Tracker
 
 ## Description ![MIT badge](https://img.shields.io/badge/License-MIT-brightgreen)
 
-This application is used to write and save notes so that the user can organize their thoughts and keep track of tasks they need to complete. Using express.js, the front and back end are linked so that the application can use a custom database to save notes and middleware to deal with http requests
+This employee tracker is designed for business owners who want to view and manage departments, roles, and employees within their company. Using inquirer, the user is able to interact with the command line to view, add or edit information.
 
 ## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contribution](#Contribution)
 - [License](#license)
-- [Tests](#tests)
 - [questions](#questions)
 
 ## Installation
 
-NA
+1. Navigate to the main folder
+2. Run "npm i" to install necessary packages 
+3. Create a .env file and follow the .env.EXAMPLE format with your sql information.
 
 ## Usage
 
-From the Note Taker home page, click "Get Started" to view saved notes and to create new notes 2. You can click the saved notes listed on the left to see more details. 3.The note title and text will appear on the right side of the page. 4. To create a note at anytime, press the + sign on the top right. 5.The save icon will only appear when both title and text sections have text within them. 6. to delete any saved notes, simply press the garbage bin icon beside them.
-
-## Contribute
-
-NA
+1. Open the terminal and navigate to the db folder in main. 
+2. Enter "mysql -u root -p" and fill in your password 
+3. Enter the following lines "source schema.sql;" and "source seeds.sql;" 
+4. Exit mysql using "quit"
+5. Go back to the main folder and enter "node index.js" to start the application
+6. Use the up and down keys to choose an option and follow the prompts
+7. To choose another action, use the up or down keys to select again. 
+8. To exit, simply choose the "quit" option or press Ctrl + c
 
 ## License
 
 Please refer to the LICENSE in the repo
 
-## Tests
-
-Na
-
 ## Questions
 
 Check out my GitHub here: https://github.com/jjocelynn
-
-Or if you have additional questions, email me at: NA
