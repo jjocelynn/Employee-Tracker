@@ -4,6 +4,10 @@
 
 This employee tracker is designed for business owners who want to view and manage departments, roles, and employees within their company. Using inquirer, the user is able to interact with the command line to view, add or edit information.
 
+## Link
+
+https://youtu.be/vDPwMv68AMA
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -27,6 +31,8 @@ This employee tracker is designed for business owners who want to view and manag
 6. Use the up and down keys to choose an option and follow the prompts
 7. To choose another action, use the up or down keys to select again. 
 8. To exit, simply choose the "quit" option or press Ctrl + c
+
+[![Employee tracker video demonstration](https://i9.ytimg.com/vi_webp/vDPwMv68AMA/mq2.webp?sqp=CIyi658G-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGEIgXyhyMA8=&rs=AOn4CLCGlxqLQEsSaPkWEKLxuIz9OK-YMQ)](https://youtu.be/vDPwMv68AMA)
 
 ## License
 
